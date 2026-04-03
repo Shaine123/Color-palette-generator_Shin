@@ -1,15 +1,21 @@
 const genPaletteBtn = document.getElementById("genPalette-btn");
-const color = document.querySelector(".color");
-const hexCodeElement = document.querySelector(".hex-code");
+const colorBoxes = document.querySelectorAll(".color-box");
 
 genPaletteBtn.addEventListener("click", genPalette);
 
 function genPalette() {
-  for (let i = 0; i < 5; i++) {
-    let hex = getHexCode();
-    color.style.backgroundColor = hex;
-    hexCodeElement.textContent = hex;
-  }
+  colorBoxes.forEach((element) => {
+    let colorBox = element.querySelector(".color");
+    let hex = element.querySelector(".hex-code");
+    let copyBtn = element.querySelector(".copy-btn");
+
+    let hexCodes = getHexCode();
+
+    colorBox.style.backgroundColor = hexCodes;
+    hex.textContent = hexCodes;
+
+    copyBtn.addEventListener("click", copyHexCode);
+  });
 }
 
 function getHexCode() {
@@ -23,3 +29,25 @@ function getHexCode() {
 
   return hex;
 }
+
+function copyHexCode(event) {
+  const copyBtn = event.target;
+
+  copyBtn.classList.remove("fa-solid", "fa-clone");
+  copyBtn.classList.add("fa-regular", "fa-circle-check");
+
+  copyBtn.style.color = "#B2FFA8";
+
+  const text = copyBtn.previousElementSibling.textContent;
+
+  navigator.clipboard.writeText(text);
+
+  setTimeout(() => {
+    copyBtn.classList.remove("fa-regular", "fa-circle-check");
+    copyBtn.classList.add("fa-solid", "fa-clone");
+
+    copyBtn.style.color = "";
+  }, 1000);
+}
+
+genPalette();
