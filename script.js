@@ -14,7 +14,9 @@ function genPalette() {
     colorBox.style.backgroundColor = hexCodes;
     hex.textContent = hexCodes;
 
-    copyBtn.addEventListener("click", copyHexCode);
+    // copyBtn.addEventListener("click", copyHexCode);
+
+    element.addEventListener("click", copyHexCode);
   });
 }
 
@@ -31,23 +33,44 @@ function getHexCode() {
 }
 
 function copyHexCode(event) {
-  const copyBtn = event.target;
+  const element = event.target;
+  if (element.classList.contains("color")) {
+    const hexText =
+      element.nextElementSibling.querySelector(".hex-code").textContent;
 
-  copyBtn.classList.remove("fa-solid", "fa-clone");
-  copyBtn.classList.add("fa-regular", "fa-circle-check");
+    navigator.clipboard.writeText(hexText);
 
-  copyBtn.style.color = "#B2FFA8";
+    const copyBtn = element.nextElementSibling.querySelector(".copy-btn");
 
-  const text = copyBtn.previousElementSibling.textContent;
+    copyBtn.classList.remove("fa-solid", "fa-clone");
+    copyBtn.classList.add("fa-regular", "fa-circle-check");
 
-  navigator.clipboard.writeText(text);
+    copyBtn.style.color = "#B2FFA8";
 
-  setTimeout(() => {
-    copyBtn.classList.remove("fa-regular", "fa-circle-check");
-    copyBtn.classList.add("fa-solid", "fa-clone");
+    setTimeout(() => {
+      copyBtn.classList.remove("fa-regular", "fa-circle-check");
+      copyBtn.classList.add("fa-solid", "fa-clone");
 
-    copyBtn.style.color = "";
-  }, 1000);
+      copyBtn.style.color = "";
+    }, 1500);
+  } else if (element.classList.contains("copy-btn")) {
+    const hexText = element.previousElementSibling.textContent;
+
+    navigator.clipboard.writeText(hexText);
+    const copyBtn = element;
+
+    copyBtn.classList.remove("fa-solid", "fa-clone");
+    copyBtn.classList.add("fa-regular", "fa-circle-check");
+
+    copyBtn.style.color = "#B2FFA8";
+
+    setTimeout(() => {
+      copyBtn.classList.remove("fa-regular", "fa-circle-check");
+      copyBtn.classList.add("fa-solid", "fa-clone");
+
+      copyBtn.style.color = "";
+    }, 1500);
+  }
 }
 
 genPalette();
