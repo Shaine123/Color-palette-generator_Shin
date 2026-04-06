@@ -7,14 +7,11 @@ function genPalette() {
   colorBoxes.forEach((element) => {
     let colorBox = element.querySelector(".color");
     let hex = element.querySelector(".hex-code");
-    let copyBtn = element.querySelector(".copy-btn");
 
     let hexCodes = getHexCode();
 
     colorBox.style.backgroundColor = hexCodes;
     hex.textContent = hexCodes;
-
-    // copyBtn.addEventListener("click", copyHexCode);
 
     element.addEventListener("click", copyHexCode);
   });
