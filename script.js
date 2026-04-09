@@ -39,35 +39,29 @@ function copyHexCode(event) {
 
     const copyBtn = element.nextElementSibling.querySelector(".copy-btn");
 
-    copyBtn.classList.remove("fa-solid", "fa-clone");
-    copyBtn.classList.add("fa-regular", "fa-circle-check");
-
-    copyBtn.style.color = "#B2FFA8";
-
-    setTimeout(() => {
-      copyBtn.classList.remove("fa-regular", "fa-circle-check");
-      copyBtn.classList.add("fa-solid", "fa-clone");
-
-      copyBtn.style.color = "";
-    }, 1500);
+    showCopySuccess(copyBtn);
   } else if (element.classList.contains("copy-btn")) {
     const hexText = element.previousElementSibling.textContent;
 
     navigator.clipboard.writeText(hexText);
     const copyBtn = element;
 
-    copyBtn.classList.remove("fa-solid", "fa-clone");
-    copyBtn.classList.add("fa-regular", "fa-circle-check");
-
-    copyBtn.style.color = "#B2FFA8";
-
-    setTimeout(() => {
-      copyBtn.classList.remove("fa-regular", "fa-circle-check");
-      copyBtn.classList.add("fa-solid", "fa-clone");
-
-      copyBtn.style.color = "";
-    }, 1500);
+    showCopySuccess(copyBtn);
   }
+}
+
+function showCopySuccess(copyBtn) {
+  copyBtn.classList.remove("fa-solid", "fa-clone");
+  copyBtn.classList.add("fa-regular", "fa-circle-check");
+
+  copyBtn.style.color = "#B2FFA8";
+
+  setTimeout(() => {
+    copyBtn.classList.remove("fa-regular", "fa-circle-check");
+    copyBtn.classList.add("fa-solid", "fa-clone");
+
+    copyBtn.style.color = "";
+  }, 1500);
 }
 
 genPalette();
